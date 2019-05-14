@@ -17,7 +17,7 @@ class TicketScreen extends React.Component {
         return (
             <SafeAreaView style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
                 <QRCode
-                    color={Config.COLORS.TICKET_QR_CODE_COLOR}
+                    color={Config.COLORS.TICKET_QR_CODE}
                     size={250}
                     value={this.props.user.email}
                 />
