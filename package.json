@@ -11,7 +11,6 @@
     "react": "16.5.0",
     "react-clock": "^2.3.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz",
-    "react-native-event-calendar": "github:joshjhargreaves/react-native-event-calendar#3f49b15439bc4ae28f16fbc4d53391fce955c199",
     "react-native-events-calendar": "github:joshjhargreaves/react-native-event-calendar#3f49b15439bc4ae28f16fbc4d53391fce955c199",
     "react-native-paper": "^2.15.2",
     "react-native-qrcode-svg": "^5.1.2",
