@@ -1,21 +1,37 @@
 import React from 'react';
-import { View } from 'react-native';
 import QRCode from 'react-native-qrcode-svg';
 import { SafeAreaView } from 'react-navigation';
+import { connect } from 'react-redux';
 
-import Config from '../config/config'
+import Config from '../config/config';
+import LoginScreen from './LoginScreen';
 
-export default class TicketScreen extends React.Component {
+class TicketScreen extends React.Component {
     render() {
-        let logo = require('../assets/favicon.png');
+        if (!this.props.isLoggedIn) {
+            return (
+                <LoginScreen />
+            );
+        }
+
         return (
             <SafeAreaView style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
                 <QRCode
                     color={Config.COLORS.TICKET_QR_CODE_COLOR}
                     size={250}
-                    value='hackathon@umich.edu'
+                    value={this.props.user.email}
                 />
             </SafeAreaView>
-        )
+        );
     }
 }
+
+function mapStateToProps(state) {
+    const { auth } = state;
+    return {
+        isLoggedIn: auth.isLoggedIn,
+        user: auth.user,
+    };
+}
+
+export default connect(mapStateToProps)(TicketScreen);

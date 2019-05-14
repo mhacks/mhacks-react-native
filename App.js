@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, AsyncStorage } from 'react-native';
 import { createAppContainer } from 'react-navigation';
 import { AppLoading } from 'expo';
 import { createStore, applyMiddleware } from 'redux';
@@ -12,6 +12,7 @@ import { fetchAnnouncements } from './actions/Announcements';
 import { fetchConfiguration } from './actions/Configuration';
 import { fetchEvents } from './actions/Events';
 import { fetchLocations } from './actions/Locations';
+import { fetchAuthFromToken } from './actions/Auth';
 
 const AppContainer = createAppContainer(TabNavigator);
 
@@ -26,10 +27,20 @@ export default class App extends React.Component {
         isReady: false,
     };
 
+    // Fetch some non-essential information on startup
     componentDidMount() {
         store.dispatch(fetchAnnouncements());
         store.dispatch(fetchEvents());
         store.dispatch(fetchLocations());
+
+        // If token is persisted, fill auth store with
+        // info about user
+        AsyncStorage.getItem('@auth:token')
+            .then(token => {
+                if (token !== null) {
+                    store.dispatch(fetchAuthFromToken(token));
+                }
+            });
     }
 
     render() {

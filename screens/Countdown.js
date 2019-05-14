@@ -1,8 +1,9 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, AsyncStorage } from 'react-native';
 import TimerCountdown from "react-native-timer-countdown";
 import { SafeAreaView } from 'react-navigation';
 import { connect } from 'react-redux';
+import Button from '../components/Button';
 
 class CountdownScreen extends React.Component {
     render() {
@@ -18,6 +19,17 @@ class CountdownScreen extends React.Component {
                     initialMilliseconds={1000 * 60 * 60 * 24 * 3}
                     style={{ fontSize: 48 }}
                 />
+                {
+                    // Temporary solution so we can quickly
+                    // clear our app's storage
+                    __DEV__ && (
+                        <Button
+                            isLoading={false}
+                            title='Clear AsyncStorage'
+                            onPress={() => AsyncStorage.clear()}
+                        />
+                    )
+                }
             </SafeAreaView>
         );
     }
