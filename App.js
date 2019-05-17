@@ -32,15 +32,6 @@ export default class App extends React.Component {
         store.dispatch(fetchAnnouncements());
         store.dispatch(fetchEvents());
         store.dispatch(fetchLocations());
-
-        // If token is persisted, fill auth store with
-        // info about user
-        AsyncStorage.getItem('@auth:token')
-            .then(token => {
-                if (token !== null) {
-                    store.dispatch(fetchAuthFromToken(token));
-                }
-            });
     }
 
     render() {
@@ -72,7 +63,19 @@ export default class App extends React.Component {
     // off, and we might want to figure out a more robust
     // solution for the future.
     async _fetchInitialReduxState() {
-        return store.dispatch(fetchConfiguration());
+        // If token is persisted, fill auth store with
+        // info about user
+        const token = await AsyncStorage.getItem('@auth:token');
+
+        let authPromise = null;
+        if (token !== null) {
+            authPromise = store.dispatch(fetchAuthFromToken(token));
+        }
+
+        return Promise.all([
+            store.dispatch(fetchConfiguration()),
+            authPromise
+        ]);
     }
 
 }

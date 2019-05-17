@@ -55,6 +55,9 @@ class LoginScreen extends React.Component {
     signIn = () => {
         if (this.formConstraintsFulfilled()) {
             this.props.dispatch(fetchAuthFromEmailPassword(this.state.email, this.state.password))
+                .then(() => {
+                    this.props.navigation.navigate('Ticket');
+                })
                 .catch(() => {
                     // Set password field to empty if auth fails
                     this.setState({ password: '' });
@@ -72,6 +75,8 @@ function mapStateToProps(state) {
     };
 }
 
+export default connect(mapStateToProps)(LoginScreen);
+
 const styles = StyleSheet.create({
     formWrapper: {
         flex: 1,
@@ -82,5 +87,3 @@ const styles = StyleSheet.create({
 
     },
 });
-
-export default connect(mapStateToProps)(LoginScreen);

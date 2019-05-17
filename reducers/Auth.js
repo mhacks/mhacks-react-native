@@ -30,6 +30,8 @@ export default authReducer = (state = INITIAL_STATE, action) => {
                 isLoggedIn: false,
                 error: action.payload
             };
+        case ActionTypes.AUTH_LOGOUT:
+            return INITIAL_STATE;
         default:
             return state;
     }

@@ -1,37 +1,25 @@
 import React from 'react';
-import QRCode from 'react-native-qrcode-svg';
-import { SafeAreaView } from 'react-navigation';
-import { connect } from 'react-redux';
+import { createStackNavigator, createSwitchNavigator, withNavigation } from 'react-navigation';
 
-import Config from '../config/config';
 import LoginScreen from './LoginScreen';
+import Ticket from '../components/Ticket';
+import AuthLoadingScreen from './AuthLoadingScreen';
+import LogoutButton from '../components/LogoutButton';
 
-class TicketScreen extends React.Component {
-    render() {
-        if (!this.props.isLoggedIn) {
-            return (
-                <LoginScreen />
-            );
-        }
+const ticketStackNavigator = createStackNavigator({
+    Ticket: {
+        screen: Ticket,
+        navigationOptions: {
+            title: 'Ticket',
+            headerRight: <LogoutButton />,
+        },
+    },
+});
 
-        return (
-            <SafeAreaView style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-                <QRCode
-                    color={Config.COLORS.TICKET_QR_CODE}
-                    size={250}
-                    value={this.props.user.email}
-                />
-            </SafeAreaView>
-        );
-    }
-}
-
-function mapStateToProps(state) {
-    const { auth } = state;
-    return {
-        isLoggedIn: auth.isLoggedIn,
-        user: auth.user,
-    };
-}
-
-export default connect(mapStateToProps)(TicketScreen);
+export default createSwitchNavigator({
+    AuthLoading: AuthLoadingScreen,
+    Login: LoginScreen,
+    Ticket: ticketStackNavigator,
+}, {
+        initialRouteName: 'AuthLoading',
+    });

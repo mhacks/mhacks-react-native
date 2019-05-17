@@ -35,8 +35,11 @@ export default {
         // Used for the color of the tab bar focus tint
         TAB_BAR_ICON: '#E02358',
 
-        // Color of the QR code on the ticket screen
-        TICKET_QR_CODE: '#E02358',
+        // Colors relating to the ticket component
+        TICKET: {
+            BACKGROUND: '#E02358',
+            QR_CODE: '#E02358',
+        },
 
         // Colors used for each category event
         EVENT_BY_CATEGORY: {

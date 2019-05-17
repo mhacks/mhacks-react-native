@@ -77,3 +77,11 @@ export const fetchAuthFromToken = (token) => {
             .catch(error => dispatch({ type: ActionTypes.FETCH_AUTH_ERROR, payload: error }));
     };
 }
+
+export const logout = () => {
+    return dispatch => {
+        dispatch({ type: ActionTypes.AUTH_LOGOUT });
+
+        return AsyncStorage.removeItem('@auth:token', '');
+    };
+}
