@@ -43,7 +43,9 @@ function mapStateToProps(state) {
     return {
         events: events.events,
         isFetching: events.isFetching,
-        startDate: Date.parse(configuration.configuration.start_date),
+        startDate: configuration.configuration !== null
+            ? Date.parse(configuration.configuration.start_date)
+            : new Date(),
     };
 }
 

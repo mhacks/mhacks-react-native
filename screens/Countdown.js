@@ -13,7 +13,7 @@ class CountdownScreen extends React.Component {
                 alignItems: "center",
                 justifyContent: "center"
             }}>
-                <Text>Welcome to {this.props.configuration.app_name}!</Text>
+                <Text>Welcome to {this.props.configuration !== null ? this.props.configuration.app_name : 'MHacks'}!</Text>
                 <Text>Not a real countdown but:</Text>
                 <TimerCountdown
                     initialMilliseconds={1000 * 60 * 60 * 24 * 3}

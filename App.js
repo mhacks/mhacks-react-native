@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, AsyncStorage } from 'react-native';
+import { StyleSheet, AsyncStorage, Alert } from 'react-native';
 import { createAppContainer } from 'react-navigation';
 import { AppLoading } from 'expo';
 import { createStore, applyMiddleware } from 'redux';
@@ -40,7 +40,7 @@ export default class App extends React.Component {
                 <AppLoading
                     startAsync={this._fetchInitialReduxState}
                     onFinish={() => { this.setState({ isReady: true }) }}
-                    onError={console.warn}
+                    onError={this._appLoadingError}
                 />
             );
         }
@@ -76,6 +76,11 @@ export default class App extends React.Component {
             store.dispatch(fetchConfiguration()),
             authPromise
         ]);
+    }
+
+    _appLoadingError(error) {
+        Alert.alert('Failed to retrieve application information. Make sure that your internet connection is working.');
+        console.log(error);
     }
 
 }
