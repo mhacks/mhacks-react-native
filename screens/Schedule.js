@@ -6,6 +6,7 @@ import { Haptic } from 'expo';
 import { connect } from 'react-redux';
 
 import EventScreen from './Event';
+import Config from '../config/config';
 
 class ScheduleScreen extends React.Component {
 
@@ -40,8 +41,18 @@ class ScheduleScreen extends React.Component {
 
 function mapStateToProps(state) {
     const { events, configuration } = state;
+
+    const eventsConverted = events.events.map(x => ({
+        start: new Date(x.startDate_ts),
+        end: new Date(x.endDate_ts),
+        title: x.name,
+        summary: x.desc,
+        category: x.category,
+        color: Config.COLORS.EVENT_BY_CATEGORY[x.category],
+    }));
+
     return {
-        events: events.events,
+        events: eventsConverted,
         isFetching: events.isFetching,
         startDate: configuration.configuration !== null
             ? Date.parse(configuration.configuration.start_date)

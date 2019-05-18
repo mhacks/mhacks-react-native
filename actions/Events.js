@@ -9,18 +9,9 @@ export const fetchEvents = () => {
         return fetch(Endpoints.EVENTS)
             .then(response => response.json())
             .then(responseJSON => {
-                let events = responseJSON.events;
+                const events = responseJSON.events;
 
-                let eventsConverted = events.map(x => ({
-                    start: new Date(x.startDate_ts),
-                    end: new Date(x.endDate_ts),
-                    title: x.name,
-                    summary: x.desc,
-                    category: x.category,
-                    color: Config.COLORS.EVENT_BY_CATEGORY[x.category]
-                }));
-
-                dispatch({ type: ActionTypes.FETCH_EVENTS_SUCCESS, payload: eventsConverted });
+                dispatch({ type: ActionTypes.FETCH_EVENTS_SUCCESS, payload: events });
             })
             .catch(error => dispatch({ type: ActionTypes.FETCH_EVENTS_ERROR, payload: error }));
     };
