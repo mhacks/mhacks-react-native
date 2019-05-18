@@ -61,12 +61,14 @@ class Ticket extends React.Component {
                             <Text style={styles.field}>{this.props.user.university && this.props.user.university != '' ? this.props.user.university : 'Unknown'}</Text>
                         </View>
                     </View>
-                    <View style={styles.qrCode}>
-                        <QRCode
-                            color={Config.COLORS.TICKET.QR_CODE}
-                            size={150}
-                            value={this.props.user.email}
-                        />
+                    <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+                        <View style={styles.qrCode}>
+                            <QRCode
+                                color={Config.COLORS.TICKET.QR_CODE}
+                                size={150}
+                                value={this.props.user.email}
+                            />
+                        </View>
                     </View>
                 </View>
             </View>
@@ -91,7 +93,7 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'space-evenly',
         backgroundColor: Config.COLORS.TICKET.BACKGROUND,
-        alignItems: 'center',
+        alignItems: 'stretch',
         margin: 10,
         borderRadius: 15,
     },
