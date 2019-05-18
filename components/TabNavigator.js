@@ -1,5 +1,5 @@
 import React from 'react';
-import {Platform} from 'react-native';
+import { Platform } from 'react-native';
 import { createBottomTabNavigator } from 'react-navigation';
 import { Ionicons, Entypo } from '@expo/vector-icons';
 
@@ -10,19 +10,14 @@ import AnnouncementsScreen from '../screens/Announcements';
 import TicketScreen from '../screens/Ticket';
 
 import Config from '../config/config';
-
-// Gets the name of the icon for the specific platform.
-// If iOS, returns ios-name, else md-name.
-function getPlatformIconName(name) {
-    return (Platform.OS === 'ios' ? 'ios' : 'md') + '-' + name;
-}
+import { getPlatformSpecificIconName } from '../utils/Icons';
 
 export default createBottomTabNavigator({
     Schedule: {
         screen: ScheduleScreen,
         navigationOptions: {
             tabBarIcon: ({ tintColor }) => (
-                <Ionicons name={getPlatformIconName('calendar')} color={tintColor} size={Config.TAB_NAVIGATOR_ICON_SIZE} />
+                <Ionicons name={getPlatformSpecificIconName('calendar')} color={tintColor} size={Config.TAB_NAVIGATOR_ICON_SIZE} />
             )
         }
     },
@@ -30,7 +25,7 @@ export default createBottomTabNavigator({
         screen: MapScreen,
         navigationOptions: {
             tabBarIcon: ({ tintColor }) => (
-                <Ionicons name={getPlatformIconName('pin')} color={tintColor} size={Config.TAB_NAVIGATOR_ICON_SIZE} />
+                <Ionicons name={getPlatformSpecificIconName('pin')} color={tintColor} size={Config.TAB_NAVIGATOR_ICON_SIZE} />
             )
         }
     },
@@ -38,7 +33,7 @@ export default createBottomTabNavigator({
         screen: CountdownScreen,
         navigationOptions: {
             tabBarIcon: ({ tintColor }) => (
-                <Ionicons name={getPlatformIconName('hourglass')} color={tintColor} size={Config.TAB_NAVIGATOR_ICON_SIZE} />
+                <Ionicons name={getPlatformSpecificIconName('hourglass')} color={tintColor} size={Config.TAB_NAVIGATOR_ICON_SIZE} />
             )
         }
     },
@@ -46,7 +41,7 @@ export default createBottomTabNavigator({
         screen: AnnouncementsScreen,
         navigationOptions: {
             tabBarIcon: ({ tintColor }) => (
-                <Ionicons name={getPlatformIconName('notifications')} color={tintColor} size={Config.TAB_NAVIGATOR_ICON_SIZE} />
+                <Ionicons name={getPlatformSpecificIconName('notifications')} color={tintColor} size={Config.TAB_NAVIGATOR_ICON_SIZE} />
             )
         }
     },
