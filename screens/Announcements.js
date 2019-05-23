@@ -24,6 +24,7 @@ class AnnouncementsScreen extends React.Component {
                     renderItem={({ item }) => <Announcement title={item.title} body={item.body} time={new Date(item.broadcastTime_ts)} category={item.category} />}
                     onRefresh={() => this.props.dispatch(fetchAnnouncements())}
                     refreshing={this.props.isFetching}
+                    contentContainerStyle={{ paddingBottom: 10 }}
                     ListEmptyComponent={<Text style={{ margin: 20, textAlign: 'center' }}>No announcements yet, stick tight!</Text>}
                 />
             </View>
