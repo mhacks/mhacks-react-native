@@ -20,7 +20,7 @@ class AnnouncementsScreen extends React.Component {
                 <FlatList
                     data={this.props.announcements}
                     keyExtractor={(item, id) => item.id}
-                    renderItem={({ item }) => <Announcement title={item.title} body={item.body} time={new Date(item.createdAt_ts)} category={item.category} />}
+                    renderItem={({ item }) => <Announcement title={item.title} body={item.body} time={new Date(item.broadcastTime_ts)} category={item.category} />}
                     onRefresh={() => this.props.dispatch(fetchAnnouncements())}
                     refreshing={this.props.isFetching}
                     ListEmptyComponent={<Text style={{ margin: 20, textAlign: 'center' }}>No announcements yet, stick tight!</Text>}

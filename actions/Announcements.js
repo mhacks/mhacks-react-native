@@ -12,7 +12,7 @@ export const fetchAnnouncements = () => {
 
                 // Sort announcements from newest to oldest, just a sanity check
                 announcements.sort(function (a, b) {
-                    return b.createdAt_ts - a.createdAt_ts;
+                    return b.broadcastTime_ts - a.broadcastTime_ts;
                 })
 
                 dispatch({ type: ActionTypes.FETCH_ANNOUNCEMENTS_SUCCESS, payload: announcements });
