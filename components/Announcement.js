@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 
 import Config from '../config/config';
 
@@ -7,18 +7,38 @@ export default class Announcement extends React.Component {
 
     render() {
         return (
-            <View style={{
-                flex: 1,
-                backgroundColor: Config.COLORS.ANNOUNCEMENT_BY_CATEGORY[this.props.category],
-                margin: 10,
-                marginBottom: 0,
-                borderRadius: 5,
-            }}>
-                <Text style={{ fontSize: 20, margin: 10, fontWeight: 'bold' }}>{this.props.title}</Text>
-                <Text style={{ fontSize: 14, margin: 10, marginTop: 0 }}>{this.props.body}</Text>
-                <Text style={{ fontSize: 8, marginLeft: 10, marginBottom: 10, fontWeight: 'bold', color: '#fff' }}>{this.props.time.toDateString() + ' ' + this.props.time.toLocaleTimeString()}</Text>
+            <View style={[styles.container, { backgroundColor: Config.COLORS.ANNOUNCEMENT_BY_CATEGORY[this.props.category] }]}>
+                <Text style={styles.title}>{this.props.title}</Text>
+                <Text style={styles.body}>{this.props.body}</Text>
+                <Text style={styles.timestamp}>{this.props.time.toDateString() + ' ' + this.props.time.toLocaleTimeString()}</Text>
             </View>
         );
     }
 
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        margin: 10,
+        marginBottom: 0,
+        borderRadius: 5,
+    },
+    title: {
+        fontSize: 20,
+        margin: 10,
+        fontWeight: 'bold',
+    },
+    body: {
+        fontSize: 14,
+        margin: 10,
+        marginTop: 0,
+    },
+    timestamp: {
+        fontSize: 8,
+        marginLeft: 10,
+        marginBottom: 10,
+        fontWeight: 'bold',
+        color: '#fff'
+    },
+});
