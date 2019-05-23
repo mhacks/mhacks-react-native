@@ -35,7 +35,7 @@ export const fetchAuthFromEmailPassword = (email, password) => {
                     }
                 });
 
-                AsyncStorage.setItem('@auth:token', token);
+                return AsyncStorage.setItem('@auth:token', token);
             })
             .catch(error => {
                 dispatch({ type: ActionTypes.FETCH_AUTH_ERROR, payload: error });
