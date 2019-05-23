@@ -1,12 +1,13 @@
 import React from 'react';
-import { View, Text, Header, Platform } from 'react-native';
-import { SafeAreaView, createStackNavigator } from 'react-navigation';
+import { View, Text } from 'react-native';
+import { createStackNavigator } from 'react-navigation';
 import { FlatList } from 'react-native';
-import Ionicons from '@expo/vector-icons/Ionicons';
 import { connect } from 'react-redux';
 
 import Announcement from '../components/Announcement';
 import { fetchAnnouncements } from '../actions/Announcements';
+import CreateAnnouncementButton from '../components/CreateAnnouncementButton';
+import CreateAnnouncementScreen from './CreateAnnouncement';
 
 class AnnouncementsScreen extends React.Component {
 
@@ -44,7 +45,13 @@ export default stackNavigator = createStackNavigator({
         screen: connect(mapStateToProps)(AnnouncementsScreen),
         navigationOptions: {
             title: 'Announcements',
-            headerRight: (<Ionicons name={(Platform.OS === 'ios' ? 'ios' : 'md') + '-create'} style={{ padding: 10 }} size={20} />),
+            headerRight: <CreateAnnouncementButton />,
         }
     },
+    CreateAnnouncement: {
+        screen: CreateAnnouncementScreen,
+        navigationOptions: {
+            title: 'Create Announcement',
+        }
+    }
 });

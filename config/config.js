@@ -26,6 +26,10 @@ export default {
     // Size of the icons on the tab bar
     TAB_NAVIGATOR_ICON_SIZE: 20,
 
+    // Window of time (in hours) around the start and end 
+    // of hacking where announcements can be sent
+    ANNOUNCEMENT_TIME_WINDOW_PADDING: 10,
+
     // A list of colors for the app. It would be nice
     // to be able to dynamically fill the list of colors,
     // but I guess we have to define them at compile
