@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, Platform } from 'react-native';
-import QRCode from 'react-native-qrcode-svg';
+import QRCode from 'react-native-qrcode';
 import { connect } from 'react-redux';
 import { Brightness } from 'expo';
 
@@ -64,7 +64,7 @@ class Ticket extends React.Component {
                     <View style={{ alignItems: 'center', justifyContent: 'center' }}>
                         <View style={styles.qrCode}>
                             <QRCode
-                                color={Config.COLORS.TICKET.QR_CODE}
+                                bgColor={Config.COLORS.TICKET.QR_CODE}
                                 size={150}
                                 value={this.props.user.email}
                             />
