@@ -47,16 +47,16 @@ class CountdownScreen extends React.Component {
         return [days, hours, minutes, seconds].join(':');
     }
 
-    // Generate text greeting relative to event time
+    // Generate greeting string relative to event time
     generateGreeting() {
         if (Date.parse(this.props.configuration.start_date) < Date.now()) {
             if (Date.now() < Date.parse(this.props.configuration.end_date)) {   // Event happening
-                return <Text>Hacking Time Remaining:</Text>
+                return 'Hacking Time Remaining:';
             } else {
-                return <Text>Hacking Time is Over!</Text>
+                return 'Hacking Time is Over!';
             }
         }
-        return <Text>Mhacks Starts In:</Text>
+        return 'MHacks Starts in:';
     }
 
     render() {
@@ -67,7 +67,7 @@ class CountdownScreen extends React.Component {
                 justifyContent: "center"
             }}>
                 <Text>Welcome to {this.props.configuration !== null ? this.props.configuration.app_name : 'MHacks'}!</Text>
-                {this.generateGreeting()}
+                <Text>{this.generateGreeting()}</Text>
                 <Text>{this.generateDateTimestamp(this.getCountDownStartValue)}</Text>
             </SafeAreaView>
         );
