@@ -1,40 +1,62 @@
 import React from 'react';
-import { View, Text, AsyncStorage } from 'react-native';
-import CountDown from 'react-native-countdown-component';
+import { Text } from 'react-native';
 import { SafeAreaView } from 'react-navigation';
 import { connect } from 'react-redux';
-import Button from '../components/Button';
 
 class CountdownScreen extends React.Component {
+    componentDidMount() {
+        this.timerFunction = setInterval(() => {
+            this.updateCountdown();
+        }, 1000);
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.timerFunction);
+    }
+
+    updateCountdown() {
+        this.forceUpdate();
+    }
+
     // Generate countdown start time relative to event time
     getCountDownStartValue() {
         if (Date.parse(this.props.configuration.start_date) < Date.now()) {
-            if(Date.now() < Date.parse(this.props.configuration.end_date)){   // Event happening
-                let t = Date.parse(this.props.configuration.end_date) - Date.now();  // get difference in milliseconds
-                let seconds  = t / 1000;  // milliseconds to seconds
-                return seconds;
+            if (Date.now() < Date.parse(this.props.configuration.end_date)) {   // Event happening
+                return Date.parse(this.props.configuration.end_date) - Date.now();  // get difference in milliseconds
             } else {  // Event over
+                clearInterval(this.timerFunction);
                 return 0;
             }
-
-        } else {
-            // Event starting in future
-            let t = Date.parse(this.props.configuration.start_date) - Date.now();  // get difference in milliseconds
-            let seconds  = t / 1000;  // milliseconds to seconds
-            return seconds;
+        } else {  // before event
+            return Date.parse(this.props.configuration.start_date) - Date.now();
         }
     }
-    
-    // Generate text greeting relative to event time
-    generateGreeting(){
+
+    // Generate Days:Hours:Minutes:Seconds timestamp from milliseconds
+    generateDateTimestamp(milliseconds) {
+        milliseconds = this.getCountDownStartValue();
+
+        const seconds = ('0' + Math.floor((milliseconds / 1000) % 60)).slice(-2);
+        const minutes = ('0' + Math.floor((milliseconds / 1000 / 60) % 60)).slice(-2);
+        const hours = ('0' + Math.floor((milliseconds / (1000 * 60 * 60)) % 24)).slice(
+            -2
+        );
+        const days = ('0' + Math.floor(milliseconds / (1000 * 60 * 60 * 24))).slice(
+            -2
+        );
+        return [days, hours, minutes, seconds].join(':');
+    }
+
+    // Generate greeting string relative to event time
+    generateGreeting() {
         if (Date.parse(this.props.configuration.start_date) < Date.now()) {
-            if(Date.now() < Date.parse(this.props.configuration.end_date)){   // Event happening
-                return <Text>Hacking Time Remaining:</Text>
+            if (Date.now() < Date.parse(this.props.configuration.end_date)) {   // Event happening
+                return 'Hacking Time Remaining:';
             } else {
-                return <Text>Hacking Time is Over!</Text> 
+                return 'Hacking Time is Over!';
             }
         }
-        return <Text>Mhacks Starts in:</Text>
+        return 'MHacks Starts in:';
     }
 
     render() {
@@ -45,11 +67,8 @@ class CountdownScreen extends React.Component {
                 justifyContent: "center"
             }}>
                 <Text>Welcome to {this.props.configuration !== null ? this.props.configuration.app_name : 'MHacks'}!</Text>
-                {this.generateGreeting()}
-                <CountDown
-                    until={this.getCountDownStartValue()}
-                    size={20}
-                />
+                <Text>{this.generateGreeting()}</Text>
+                <Text>{this.generateDateTimestamp(this.getCountDownStartValue)}</Text>
             </SafeAreaView>
         );
     }
