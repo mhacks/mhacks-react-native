@@ -1,17 +1,25 @@
 import React from 'react';
-import { createStackNavigator, createSwitchNavigator, withNavigation } from 'react-navigation';
+import { createStackNavigator, createSwitchNavigator } from 'react-navigation';
 
 import LoginScreen from './LoginScreen';
 import Ticket from '../components/Ticket';
 import AuthLoadingScreen from './AuthLoadingScreen';
-import LogoutButton from '../components/LogoutButton';
+import HeaderButton from '../components/HeaderButton';
+import { logout } from '../actions/Auth';
 
 const ticketStackNavigator = createStackNavigator({
     Ticket: {
         screen: Ticket,
         navigationOptions: {
             title: 'Ticket',
-            headerRight: <LogoutButton />,
+            headerRight: (
+                <HeaderButton
+                    iconName='log-out'
+                    navigateTo='Login'
+                    action={logout}
+                    shouldRender={() => true}
+                />
+            ),
         },
     },
 });

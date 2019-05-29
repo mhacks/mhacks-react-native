@@ -4,16 +4,13 @@ import { createStackNavigator } from 'react-navigation';
 import { FlatList } from 'react-native';
 import { connect } from 'react-redux';
 
+import { userHasAnyOfGroups } from '../utils/User';
 import Announcement from '../components/Announcement';
 import { fetchAnnouncements } from '../actions/Announcements';
-import CreateAnnouncementButton from '../components/CreateAnnouncementButton';
+import HeaderButton from '../components/HeaderButton';
 import CreateAnnouncementScreen from './CreateAnnouncement';
 
 class AnnouncementsScreen extends React.Component {
-
-    constructor(props) {
-        super(props);
-    }
 
     render() {
         return (
@@ -46,7 +43,16 @@ export default stackNavigator = createStackNavigator({
         screen: connect(mapStateToProps)(AnnouncementsScreen),
         navigationOptions: {
             title: 'Announcements',
-            headerRight: <CreateAnnouncementButton />,
+            headerRight: (
+                <HeaderButton
+                    iconName='create'
+                    navigateTo='CreateAnnouncement'
+                    shouldRender={state => {
+                        const { auth } = state;
+                        return auth.user !== null && userHasAnyOfGroups(auth.user, 'admin');
+                    }}
+                />
+            ),
         }
     },
     CreateAnnouncement: {
