@@ -5,7 +5,7 @@ export const fetchLocations = () => {
     return dispatch => {
         dispatch({ type: ActionTypes.FETCH_LOCATIONS_REQUEST });
 
-        return fetch(Endpoints.LOCATIONS)
+        return fetch(Endpoints.LOCATIONS())
             .then(response => response.json())
             .then(responseJSON => {
                 let locations = responseJSON.locations;

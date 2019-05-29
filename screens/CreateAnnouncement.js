@@ -134,7 +134,7 @@ class CreateAnnouncementScreen extends React.Component {
 
         console.log(JSON.stringify(values));
 
-        fetch(Endpoints.ANNOUNCEMENTS, {
+        fetch(Endpoints.ANNOUNCEMENTS(), {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

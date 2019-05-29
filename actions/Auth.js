@@ -10,7 +10,7 @@ export const fetchAuthFromEmailPassword = (email, password) => {
     return dispatch => {
         dispatch({ type: ActionTypes.FETCH_AUTH_REQUEST });
 
-        return fetch(Endpoints.LOGIN, {
+        return fetch(Endpoints.LOGIN(), {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -50,7 +50,7 @@ export const fetchAuthFromToken = (token) => {
     return dispatch => {
         dispatch({ type: ActionTypes.FETCH_AUTH_REQUEST });
 
-        return fetch(Endpoints.CURRENT_USER_PROFILE, {
+        return fetch(Endpoints.CURRENT_USER_PROFILE(), {
             method: 'GET',
             headers: {
                 'Authorization': 'Bearer ' + token,

@@ -6,7 +6,7 @@ export const fetchEvents = () => {
     return dispatch => {
         dispatch({ type: ActionTypes.FETCH_EVENTS_REQUEST });
 
-        return fetch(Endpoints.EVENTS)
+        return fetch(Endpoints.EVENTS())
             .then(response => response.json())
             .then(responseJSON => {
                 const events = responseJSON.events;

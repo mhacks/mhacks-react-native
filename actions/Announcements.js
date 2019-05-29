@@ -5,7 +5,7 @@ export const fetchAnnouncements = () => {
     return dispatch => {
         dispatch({ type: ActionTypes.FETCH_ANNOUNCEMENTS_REQUEST });
 
-        return fetch(Endpoints.ANNOUNCEMENTS)
+        return fetch(Endpoints.ANNOUNCEMENTS())
             .then(response => response.json())
             .then(responseJSON => {
                 let announcements = responseJSON.announcements;

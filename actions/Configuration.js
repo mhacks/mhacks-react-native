@@ -5,7 +5,7 @@ export const fetchConfiguration = () => {
     return dispatch => {
         dispatch({ type: ActionTypes.FETCH_CONFIGURATION_REQUEST });
 
-        return fetch(Endpoints.CONFIGURATION)
+        return fetch(Endpoints.CONFIGURATION())
             .then(response => response.json())
             .then(responseJSON => {
                 let configuration = responseJSON.configuration;
