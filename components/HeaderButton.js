@@ -31,7 +31,7 @@ class HeaderButton extends React.Component {
         }
 
         if (this.props.navigateTo !== undefined) {
-            this.props.navigation.navigate(this.props.navigateTo);
+            this.props.navigation.navigate(this.props.navigateTo, this.props.navigationParams);
         }
     }
 
@@ -50,6 +50,9 @@ HeaderButton.propTypes = {
     // Optional navigation target to navigate to
     // when clicking on header button.
     navigateTo: PropTypes.string,
+
+    // Optional parameters to pass when navigating.
+    navigationParams: PropTypes.object,
 
     // A function taking in a state and returning
     // a bool determining whether the header
