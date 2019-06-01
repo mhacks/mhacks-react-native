@@ -9,13 +9,12 @@ export default {
     // Whether to use local copy of backend on dev builds.
     // If true, the app will attempt to connect to
     // http://<ip_of_computer_running_expo>:3000.
-    USE_LOCAL_BACKEND_ON_DEV_BUILD: true,
+    USE_LOCAL_BACKEND: false,
 
     // Gets the base URL to use for API requests according to
-    // USE_LOCAL_BACKEND_ON_DEV_BUILD and __DEV__. If production
-    // build, this will always return the live server's URL.
+    // USE_LOCAL_BACKEND.
     get BASE_URL() {
-        return this.USE_LOCAL_BACKEND_ON_DEV_BUILD && __DEV__ ?
+        return this.USE_LOCAL_BACKEND ?
             'http://' + manifest.debuggerHost.split(`:`).shift() + ':3000/' + this.API_VERSION :
             'https://mhacks.org/' + this.API_VERSION
     },
@@ -29,6 +28,10 @@ export default {
     // Window of time (in hours) around the start and end 
     // of hacking where announcements can be sent
     ANNOUNCEMENT_TIME_WINDOW_PADDING: 10,
+
+    // How long after QR scan to wait (in ms) before reactivating
+    // scanner. Also affects length of border animation
+    QR_SCANNER_REACTIVATE_DELAY: 2000,
 
     // A list of colors for the app. It would be nice
     // to be able to dynamically fill the list of colors,
