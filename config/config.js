@@ -9,7 +9,7 @@ export default {
     // Whether to use local copy of backend on dev builds.
     // If true, the app will attempt to connect to
     // http://<ip_of_computer_running_expo>:3000.
-    USE_LOCAL_BACKEND: false,
+    USE_LOCAL_BACKEND: true,
 
     // Gets the base URL to use for API requests according to
     // USE_LOCAL_BACKEND.
