@@ -118,5 +118,9 @@ const styles = StyleSheet.create({
         padding: 10,
         borderRadius: 10,
         backgroundColor: '#fff',
+
+        // Fix rendering bug on Android
+        // https://github.com/cssivision/react-native-qrcode/issues/68
+        overflow: 'hidden',
     }
 });
