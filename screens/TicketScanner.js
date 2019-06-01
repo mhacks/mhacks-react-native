@@ -62,22 +62,46 @@ class TicketScannerScreen extends React.Component {
     }
 
     flashBorder(color, duration) {
-        this.setState({ border: { color: color, width: new Animated.Value(5), opacity: new Animated.Value(1) } });
+        this.setState({ border: { color: color, width: new Animated.Value(0), opacity: new Animated.Value(0) } });
+
+        // How much of the total animation time
+        // to spend fading in.
+        const FADE_IN_LENGTH = 1 / 25;
+        const FADE_OUT_LENGTH = 1 - FADE_IN_LENGTH;
+
         Animated.parallel([
-            Animated.timing(
-                this.state.border.width,
-                {
-                    toValue: 0,
-                    duration: duration,
-                }
-            ),
-            Animated.timing(
-                this.state.border.opacity,
-                {
-                    toValue: 0,
-                    duration: duration,
-                }
-            ),
+            Animated.sequence([
+                Animated.timing(
+                    this.state.border.width,
+                    {
+                        toValue: 5,
+                        duration: FADE_IN_LENGTH * duration,
+                    }
+                ),
+                Animated.timing(
+                    this.state.border.width,
+                    {
+                        toValue: 0,
+                        duration: FADE_OUT_LENGTH * duration,
+                    }
+                ),
+            ]),
+            Animated.sequence([
+                Animated.timing(
+                    this.state.border.opacity,
+                    {
+                        toValue: 1,
+                        duration: FADE_IN_LENGTH * duration,
+                    }
+                ),
+                Animated.timing(
+                    this.state.border.opacity,
+                    {
+                        toValue: 0,
+                        duration: FADE_OUT_LENGTH * duration,
+                    }
+                ),
+            ]),
         ]).start();
     }
 
