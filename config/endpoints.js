@@ -7,4 +7,5 @@ export default {
     EVENTS: () => Config.BASE_URL + '/event',
     LOCATIONS: () => Config.BASE_URL + '/location',
     LOGIN: () => Config.BASE_URL + '/auth/login',
+    TICKET_SCAN: () => Config.BASE_URL + '/user/ticket/verify',
 };
