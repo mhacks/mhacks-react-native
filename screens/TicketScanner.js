@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert, Platform, Text, StyleSheet, Vibration, Animated, View } from 'react-native';
+import { Alert, Platform, Text, StyleSheet, Vibration, Animated, View, Dimensions } from 'react-native';
 import { BarCodeScanner, Permissions, Haptic, Audio, KeepAwake } from 'expo';
 import { connect } from 'react-redux';
 
@@ -132,7 +132,7 @@ class TicketScannerScreen extends React.Component {
             Animated.timing(
                 this.state.infoPopup.bottomMargin,
                 {
-                    toValue: 20,
+                    toValue: Dimensions.get('window').width * 0.05,
                     duration: (1 / 8) * duration,
                 }
             ),
