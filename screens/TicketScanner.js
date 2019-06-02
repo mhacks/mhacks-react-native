@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert, Platform, Text, StyleSheet, Vibration, Animated } from 'react-native';
+import { Alert, Platform, Text, StyleSheet, Vibration, Animated, View } from 'react-native';
 import { BarCodeScanner, Permissions, Haptic, Audio } from 'expo';
 import { connect } from 'react-redux';
 
@@ -15,6 +15,11 @@ class TicketScannerScreen extends React.Component {
             color: '#0f0',
             width: new Animated.Value(0),
             opacity: new Animated.Value(0),
+        },
+        infoPopup: {
+            name: '',
+            email: '',
+            bottomMargin: new Animated.Value(-75),
         },
     };
 
@@ -36,6 +41,20 @@ class TicketScannerScreen extends React.Component {
 
         return (
             <>
+                <Animated.View style={[styles.infoPopupContainer, {
+                    marginBottom: this.state.infoPopup.bottomMargin,
+                }]}
+                    zIndex={1}
+                >
+                    <View style={styles.infoPopup}>
+                        <Text style={styles.infoPopupText}>
+                            Name: {this.state.infoPopup.name}
+                        </Text>
+                        <Text style={styles.infoPopupText}>
+                            Email: {this.state.infoPopup.email}
+                        </Text>
+                    </View>
+                </Animated.View>
                 <Animated.View
                     style={[StyleSheet.absoluteFill, {
                         borderColor: this.state.border.color,
@@ -48,7 +67,7 @@ class TicketScannerScreen extends React.Component {
                         // in a normal component hierarchy causes
                         // the inner width to change, this is
                         // pretty much our best option.
-                        zIndex: 1,
+                        zIndex: 2,
                     }]}
                 />
                 <BarCodeScanner
@@ -105,6 +124,28 @@ class TicketScannerScreen extends React.Component {
         ]).start();
     }
 
+    showInfoPopup(name, email, duration) {
+        this.setState({ infoPopup: { name: name, email: email, bottomMargin: new Animated.Value(-75) } });
+
+        Animated.sequence([
+            Animated.timing(
+                this.state.infoPopup.bottomMargin,
+                {
+                    toValue: 20,
+                    duration: (1 / 8) * duration,
+                }
+            ),
+            Animated.delay(Config.QR_SCANNER_REACTIVATE_DELAY * 2),
+            Animated.timing(
+                this.state.infoPopup.bottomMargin,
+                {
+                    toValue: -75,
+                    duration: (1 / 8) * duration,
+                }
+            )
+        ]).start();
+    }
+
     _onBarCodeScanned = e => {
         this.setState({ isFetching: true, disabled: true });
 
@@ -124,7 +165,10 @@ class TicketScannerScreen extends React.Component {
                     throw responseJSON;
                 }
 
+                const name = responseJSON.feedback[0].value;
+
                 this.flashBorder('#0f0', Config.QR_SCANNER_REACTIVATE_DELAY);
+                this.showInfoPopup(name, email, Config.QR_SCANNER_REACTIVATE_DELAY);
 
                 if (Platform.OS === 'ios') {
                     // TODO: replace with success Haptic.notification
@@ -142,6 +186,7 @@ class TicketScannerScreen extends React.Component {
                 setTimeout(() => this.setState({ disabled: false }), Config.QR_SCANNER_REACTIVATE_DELAY);
             })
             .catch(error => {
+                console.log(error);
                 this.flashBorder('#f00', Config.QR_SCANNER_REACTIVATE_DELAY * 2);
 
                 if (Platform.OS === 'ios') {
@@ -182,4 +227,26 @@ function mapStateToProps(state) {
     };
 }
 
-export default connect(mapStateToProps)(TicketScannerScreen)
+export default connect(mapStateToProps)(TicketScannerScreen);
+
+const styles = StyleSheet.create({
+    infoPopupContainer: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+    },
+    infoPopup: {
+        width: '90%',
+        height: 75,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#aaa',
+        borderRadius: 10,
+        opacity: 0.9,
+    },
+    infoPopupText: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        color: '#fff',
+    },
+});
