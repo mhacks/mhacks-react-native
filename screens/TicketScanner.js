@@ -1,6 +1,6 @@
 import React from 'react';
 import { Alert, Platform, Text, StyleSheet, Vibration, Animated, View } from 'react-native';
-import { BarCodeScanner, Permissions, Haptic, Audio } from 'expo';
+import { BarCodeScanner, Permissions, Haptic, Audio, KeepAwake } from 'expo';
 import { connect } from 'react-redux';
 
 import Config from '../config/config';
@@ -41,6 +41,7 @@ class TicketScannerScreen extends React.Component {
 
         return (
             <>
+                <KeepAwake />
                 <Animated.View style={[styles.infoPopupContainer, {
                     marginBottom: this.state.infoPopup.bottomMargin,
                 }]}
