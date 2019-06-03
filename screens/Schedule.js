@@ -69,7 +69,12 @@ export default createStackNavigator({
             header: null
         }
     },
-    Event: EventScreen
+    Event: {
+        screen: EventScreen,
+        navigationOptions: {
+            title: 'Event',
+        },
+    }
 });
 
 const styles = StyleSheet.create({

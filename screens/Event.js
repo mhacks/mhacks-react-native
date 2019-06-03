@@ -1,17 +1,106 @@
 import React from 'react';
-import {SafeAreaView, Text} from 'react-native';
+import { Text, StyleSheet, ScrollView, View } from 'react-native';
+import { Svg } from 'expo';
+import moment from 'moment';
+
+import Config from '../config/config';
 
 export default class EventScreen extends React.Component {
 
-render() {
-    const {navigation} = this.props;
-    const event = navigation.getParam('event');
+    static navigationOptions = ({ navigation }) => {
+        const eventColor = Config.COLORS.EVENT_BY_CATEGORY[navigation.getParam('event').category];
 
-    return (
-        <SafeAreaView style={{flex:1, alignItems: 'center',justifyContent: 'center'}}>
-            <Text>{event.title}</Text>
-        </SafeAreaView>
-    );
+        return {
+            headerTintColor: eventColor,
+        };
+    };
+
+    render() {
+        const { navigation } = this.props;
+        const event = navigation.getParam('event');
+
+        return (
+            <ScrollView>
+                <View style={styles.container}>
+                    <View style={styles.titleContainer}>
+                        <Text style={styles.title}>{event.title}</Text>
+                    </View>
+                    <View style={styles.categoryContainer}>
+                        <Text style={styles.category}>{CATEGORY_DISPLAY_NAMES[event.category]}</Text>
+                        <Svg height={12} width={12}>
+                            <Svg.Circle
+                                cx={6}
+                                cy={6}
+                                r={6}
+                                fill={Config.COLORS.EVENT_BY_CATEGORY[event.category]}
+                            />
+                        </Svg>
+                    </View>
+                    <View style={styles.timeContainer}>
+                        <Text style={styles.time}>{moment(event.start).format('dddd h:mm a')} to {moment(event.end).format('h:mm a')} ({this.getRelativeTimeString(event)})</Text>
+                    </View>
+                    <View style={styles.summaryContainer}>
+                        <Text style={styles.summary}>{event.summary}</Text>
+                    </View>
+                </View>
+            </ScrollView>
+        );
+    }
+
+    getRelativeTimeString(event) {
+        if (Date.now() < event.start) {
+            return 'starting ' + moment(event.start).fromNow();
+        }
+        if (Date.now() > event.end) {
+            return 'event has ended';
+        }
+        return 'currently happening!';
+    }
+
 }
 
-}
+// textTransform capitalize doesn't work on Android,
+// and we might want more freedom in the future.
+const CATEGORY_DISPLAY_NAMES = {
+    'general': 'General',
+    'tech talk': 'Tech Talk',
+    'food': 'Food',
+    'sponsor event': 'Sponsor Event',
+    'other': 'Other',
+};
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        margin: 20,
+    },
+    titleContainer: {
+        marginBottom: 5,
+    },
+    title: {
+        fontSize: 34,
+        fontWeight: 'bold',
+    },
+    categoryContainer: {
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: 5,
+    },
+    category: {
+        fontSize: 22,
+        fontWeight: 'bold',
+        marginRight: 5,
+    },
+    timeContainer: {
+        marginBottom: 20,
+    },
+    time: {
+        fontSize: 17,
+        fontWeight: 'bold',
+    },
+    summaryContainer: {},
+    summary: {
+
+    },
+});
