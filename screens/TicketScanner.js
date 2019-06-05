@@ -11,6 +11,7 @@ class TicketScannerScreen extends React.Component {
     state = {
         hasCameraPermission: null,
         disabled: false,
+        blurred: false,
         border: {
             color: '#0f0',
             width: new Animated.Value(0),
@@ -23,6 +24,20 @@ class TicketScannerScreen extends React.Component {
         },
     };
 
+    constructor(props) {
+        super(props);
+
+        // If we don't have this, the scanner continues
+        // to scan in the background when we switch screens.
+        this.props.navigation.addListener('didFocus', () => {
+            this.setState({ blurred: false });
+        });
+
+        this.props.navigation.addListener('willBlur', () => {
+            this.setState({ blurred: true });
+        });
+    }
+
     async componentDidMount() {
         const { status } = await Permissions.askAsync(Permissions.CAMERA);
         this.setState({ hasCameraPermission: status === 'granted' });
@@ -30,7 +45,7 @@ class TicketScannerScreen extends React.Component {
 
 
     render() {
-        const { hasCameraPermission, disabled } = this.state;
+        const { hasCameraPermission, disabled, blurred } = this.state;
 
         if (hasCameraPermission === null) {
             return <Text>Requesting for camera permission</Text>;
@@ -72,7 +87,7 @@ class TicketScannerScreen extends React.Component {
                     }]}
                 />
                 <BarCodeScanner
-                    onBarCodeScanned={disabled ? undefined : this._onBarCodeScanned}
+                    onBarCodeScanned={disabled || blurred ? undefined : this._onBarCodeScanned}
                     style={[StyleSheet.absoluteFill, {
                         zIndex: 0,
                     }]}
