@@ -71,4 +71,18 @@ export default {
 
     },
 
+    // textTransform capitalize doesn't work on Android,
+    // and we might want more freedom in the future.
+    DISPLAY_NAMES: {
+
+        EVENT_CATEGORY: {
+            'general': 'General',
+            'tech talk': 'Tech Talk',
+            'food': 'Food',
+            'sponsor event': 'Sponsor Event',
+            'other': 'Other',
+        },
+
+    },
+
 };

@@ -26,7 +26,7 @@ export default class EventScreen extends React.Component {
                         <Text style={styles.title}>{event.name}</Text>
                     </View>
                     <View style={styles.categoryContainer}>
-                        <Text style={styles.category}>{CATEGORY_DISPLAY_NAMES[event.category]}</Text>
+                        <Text style={styles.category}>{Config.DISPLAY_NAMES.EVENT_CATEGORY[event.category]}</Text>
                         <Svg height={12} width={12}>
                             <Circle
                                 cx={6}
@@ -58,16 +58,6 @@ export default class EventScreen extends React.Component {
     }
 
 }
-
-// textTransform capitalize doesn't work on Android,
-// and we might want more freedom in the future.
-const CATEGORY_DISPLAY_NAMES = {
-    'general': 'General',
-    'tech talk': 'Tech Talk',
-    'food': 'Food',
-    'sponsor event': 'Sponsor Event',
-    'other': 'Other',
-};
 
 const styles = StyleSheet.create({
     container: {
