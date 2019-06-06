@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, Platform } from 'react-native';
 import QRCode from 'react-native-qrcode';
 import { connect } from 'react-redux';
-import { Brightness } from 'expo';
+import * as Brightness from 'expo-brightness';
 
 import Config from '../config/config';
 

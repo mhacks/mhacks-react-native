@@ -1,5 +1,5 @@
 import React from 'react';
-import { MapView } from 'expo';
+import MapView from 'react-native-maps';
 import { ActivityIndicator, View } from 'react-native';
 import { connect } from 'react-redux';
 import Config from '../config/config';

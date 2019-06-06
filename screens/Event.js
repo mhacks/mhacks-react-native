@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, StyleSheet, ScrollView, View } from 'react-native';
-import { Svg } from 'expo';
+import * as Svg from 'react-native-svg';
 import moment from 'moment';
 
 import Config from '../config/config';

@@ -1,6 +1,10 @@
 import React from 'react';
 import { Alert, Platform, Text, StyleSheet, Vibration, Animated, View, Dimensions } from 'react-native';
-import { BarCodeScanner, Permissions, Haptic, Audio, KeepAwake } from 'expo';
+import KeepAwake from 'expo-keep-awake';
+import { Audio } from 'expo-av';
+import * as Haptics from 'expo-haptics';
+import * as Permissions from 'expo-permissions';
+import { BarCodeScanner } from 'expo-barcode-scanner';
 import { connect } from 'react-redux';
 
 import Config from '../config/config';
@@ -189,7 +193,7 @@ class TicketScannerScreen extends React.Component {
                 if (Platform.OS === 'ios') {
                     // TODO: replace with success Haptic.notification
                     // when Expo 33 comes out
-                    Haptic.impact(Haptic.ImpactFeedbackStyle.Heavy);
+                    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
                 } else {
                     Vibration.vibrate([0, 20, 100, 40]);
                 }
