@@ -69,13 +69,13 @@ function mapStateToProps(state) {
             time: moment(startDate).format('h:mm A') + '\n–\n' + moment(endDate).format('h:mm A'),
             title: e.name,
             description: e.desc,
-            lineColor: eventOver
+            lineColor: Config.DISABLE_PAST_EVENTS && eventOver
                 ? Config.COLORS.EVENT_DISABLED
                 : Config.COLORS.EVENT_CATEGORY[e.category],
-            circleColor: eventOver
+            circleColor: Config.DISABLE_PAST_EVENTS && eventOver
                 ? Config.COLORS.EVENT_DISABLED
                 : Config.COLORS.EVENT_CATEGORY[e.category],
-            dotColor: eventOver
+            dotColor: Config.DISABLE_PAST_EVENTS && eventOver
                 ? Config.COLORS.EVENT_DISABLED
                 : eventOngoing
                     ? '#fff'

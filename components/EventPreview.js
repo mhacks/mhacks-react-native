@@ -23,14 +23,14 @@ const styles = StyleSheet.create({
     title: e => ({
         fontSize: 17,
         fontWeight: '500', // medium
-        color: Date.now() > e.endDate_ts
+        color: Config.DISABLE_PAST_EVENTS && Date.now() > e.endDate_ts
             ? Config.COLORS.EVENT_DISABLED
             : '#000',
         marginBottom: 5,
     }),
     body: e => ({
         fontSize: 15,
-        color: Date.now() > e.endDate_ts
+        color: Config.DISABLE_PAST_EVENTS && Date.now() > e.endDate_ts
             ? Config.COLORS.EVENT_DISABLED
             : '#000',
     }),

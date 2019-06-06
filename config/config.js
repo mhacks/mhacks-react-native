@@ -33,6 +33,11 @@ export default {
     // scanner. Also affects length of border animation
     QR_SCANNER_REACTIVATE_DELAY: 2000,
 
+    // Whether events that have already happened should appear
+    // disabled (according to COLORS.EVENT_DISABLED). Disabling
+    // this is useful for testing colors
+    DISABLE_PAST_EVENTS: true,
+
     // A list of colors for the app. It would be nice
     // to be able to dynamically fill the list of colors,
     // but I guess we have to define them at compile
@@ -40,7 +45,7 @@ export default {
     COLORS: {
 
         // Used for the color of the tab bar focus tint
-        TAB_BAR_ICON: '#E02358',
+        TAB_BAR_ICON: '#0C053E',
 
         // Color used to signify when an event is disabled
         // (used for dot, line, and text)
@@ -48,25 +53,26 @@ export default {
 
         // Colors relating to the ticket component
         TICKET: {
-            BACKGROUND: '#E02358',
-            QR_CODE: '#E02358',
+            BACKGROUND: '#0C053E',
+            QR_CODE: '#0C053E',
         },
 
         // Colors used for each category event
         EVENT_CATEGORY: {
-            'general': '#00CFC1',
-            'sponsor event': '#F7EE7F',
-            'tech talk': '#A54657',
-            'food': '#FD5200',
-            'other': '#F78764',
+            'general': '#75CCE4',
+            'tech talk': '#5971B8',
+            'food': '#F05C43',
+            'sponsor event': '#CDDF2F',
+            'other': '#F69B71',
         },
 
         // Colors used for each category announcement
         ANNOUNCEMENT_CATEGORY: {
-            'logistics': '#00CFC1',
-            'event': '#A54657',
-            'food': '#FD5200',
             'emergency': '#FF0000',
+            'logistics': '#75CCE4',
+            'food': '#F05C43',
+            'event': '#5971B8',
+            'sponsored': '#CDDF2F',
         }
 
     },
@@ -75,20 +81,20 @@ export default {
     // and we might want more freedom in the future.
     DISPLAY_NAMES: {
 
-        ANNOUNCEMENT_CATEGORY: {
-            'emergency': 'Emergency',
-            'logistics': 'Logistics',
-            'food': 'Food',
-            'event': 'Events',
-            'sponsored': 'Sponsored',
-        },
-
         EVENT_CATEGORY: {
             'general': 'General',
             'tech talk': 'Tech Talk',
             'food': 'Food',
             'sponsor event': 'Sponsor Event',
             'other': 'Other',
+        },
+
+        ANNOUNCEMENT_CATEGORY: {
+            'emergency': 'Emergency',
+            'logistics': 'Logistics',
+            'food': 'Food',
+            'event': 'Events',
+            'sponsored': 'Sponsored',
         },
 
     },

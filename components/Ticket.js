@@ -105,12 +105,13 @@ const styles = StyleSheet.create({
         marginBottom: 5,
     },
     fieldHeader: {
-        fontSize: 16,
-        fontWeight: 'bold',
-        color: '#000',
+        fontSize: 15,
+        // fontWeight: '',
+        color: '#fff',
+        marginBottom: 5,
     },
     field: {
-        fontSize: 24,
+        fontSize: 22,
         color: '#fff',
     },
     qrCode: {
