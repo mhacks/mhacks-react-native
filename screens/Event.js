@@ -8,7 +8,7 @@ import Config from '../config/config';
 export default class EventScreen extends React.Component {
 
     static navigationOptions = ({ navigation }) => {
-        const eventColor = Config.COLORS.EVENT_BY_CATEGORY[navigation.getParam('event').category];
+        const eventColor = Config.COLORS.EVENT_CATEGORY[navigation.getParam('event').category];
 
         return {
             headerTintColor: eventColor,
@@ -32,7 +32,7 @@ export default class EventScreen extends React.Component {
                                 cx={6}
                                 cy={6}
                                 r={6}
-                                fill={Config.COLORS.EVENT_BY_CATEGORY[event.category]}
+                                fill={Config.COLORS.EVENT_CATEGORY[event.category]}
                             />
                         </Svg>
                     </View>

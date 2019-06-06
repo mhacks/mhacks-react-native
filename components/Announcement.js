@@ -8,7 +8,7 @@ export default class Announcement extends React.Component {
 
     render() {
         return (
-            <View style={[styles.container, { backgroundColor: Config.COLORS.ANNOUNCEMENT_BY_CATEGORY[this.props.category] }]}>
+            <View style={[styles.container, { backgroundColor: Config.COLORS.ANNOUNCEMENT_CATEGORY[this.props.category] }]}>
                 <Text style={styles.title}>{this.props.title}</Text>
                 <Text style={styles.category}>{Config.DISPLAY_NAMES.ANNOUNCEMENT_CATEGORY[this.props.category]}</Text>
                 <Text style={styles.body}>{this.props.body}</Text>

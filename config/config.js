@@ -53,7 +53,7 @@ export default {
         },
 
         // Colors used for each category event
-        EVENT_BY_CATEGORY: {
+        EVENT_CATEGORY: {
             'general': '#00CFC1',
             'sponsor event': '#F7EE7F',
             'tech talk': '#A54657',
@@ -62,7 +62,7 @@ export default {
         },
 
         // Colors used for each category announcement
-        ANNOUNCEMENT_BY_CATEGORY: {
+        ANNOUNCEMENT_CATEGORY: {
             'logistics': '#00CFC1',
             'event': '#A54657',
             'food': '#FD5200',

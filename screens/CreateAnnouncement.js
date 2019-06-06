@@ -88,11 +88,11 @@ class CreateAnnouncementScreen extends React.Component {
                                             selectedValue={values.category}
                                             onValueChange={(itemValue, itemIndex) => setFieldValue('category', itemValue)}
                                         >
-                                            <Picker.Item label="Events" color={Config.COLORS.ANNOUNCEMENT_BY_CATEGORY['event']} value="event" />
-                                            <Picker.Item label="Food" color={Config.COLORS.ANNOUNCEMENT_BY_CATEGORY['food']} value="food" />
-                                            <Picker.Item label="Logistics" color={Config.COLORS.ANNOUNCEMENT_BY_CATEGORY['logistics']} value="logistics" />
-                                            <Picker.Item label="Emergency" color={Config.COLORS.ANNOUNCEMENT_BY_CATEGORY['emergency']} value="emergency" />
-                                            <Picker.Item label="Sponsored" color={Config.COLORS.ANNOUNCEMENT_BY_CATEGORY['sponsored']} value="sponsored" />
+                                            <Picker.Item label="Events" color={Config.COLORS.ANNOUNCEMENT_CATEGORY['event']} value="event" />
+                                            <Picker.Item label="Food" color={Config.COLORS.ANNOUNCEMENT_CATEGORY['food']} value="food" />
+                                            <Picker.Item label="Logistics" color={Config.COLORS.ANNOUNCEMENT_CATEGORY['logistics']} value="logistics" />
+                                            <Picker.Item label="Emergency" color={Config.COLORS.ANNOUNCEMENT_CATEGORY['emergency']} value="emergency" />
+                                            <Picker.Item label="Sponsored" color={Config.COLORS.ANNOUNCEMENT_CATEGORY['sponsored']} value="sponsored" />
                                         </Picker>
                                     </View>
                                     <View style={styles.field}>

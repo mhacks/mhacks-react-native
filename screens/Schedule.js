@@ -71,15 +71,15 @@ function mapStateToProps(state) {
             description: e.desc,
             lineColor: eventOver
                 ? Config.COLORS.EVENT_DISABLED
-                : Config.COLORS.EVENT_BY_CATEGORY[e.category],
+                : Config.COLORS.EVENT_CATEGORY[e.category],
             circleColor: eventOver
                 ? Config.COLORS.EVENT_DISABLED
-                : Config.COLORS.EVENT_BY_CATEGORY[e.category],
+                : Config.COLORS.EVENT_CATEGORY[e.category],
             dotColor: eventOver
                 ? Config.COLORS.EVENT_DISABLED
                 : eventOngoing
                     ? '#fff'
-                    : Config.COLORS.EVENT_BY_CATEGORY[e.category],
+                    : Config.COLORS.EVENT_CATEGORY[e.category],
             rawEvent: e,
         };
 
