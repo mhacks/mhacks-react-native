@@ -25,20 +25,19 @@ const styles = StyleSheet.create({
         borderRadius: 5,
     },
     title: {
-        fontSize: 20,
+        fontSize: 22,
         margin: 10,
-        fontWeight: 'bold',
+        fontWeight: '500', // medium
     },
     body: {
-        fontSize: 14,
+        fontSize: 15,
         margin: 10,
         marginTop: 0,
     },
     timestamp: {
-        fontSize: 8,
+        fontSize: 13,
         marginLeft: 10,
         marginBottom: 10,
-        fontWeight: 'bold',
         color: '#fff'
     },
 });
