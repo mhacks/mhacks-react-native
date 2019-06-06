@@ -191,9 +191,7 @@ class TicketScannerScreen extends React.Component {
                 this.showInfoPopup(name, email, Config.QR_SCANNER_REACTIVATE_DELAY);
 
                 if (Platform.OS === 'ios') {
-                    // TODO: replace with success Haptic.notification
-                    // when Expo 33 comes out
-                    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
+                    Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
                 } else {
                     Vibration.vibrate([0, 20, 100, 40]);
                 }
@@ -210,8 +208,7 @@ class TicketScannerScreen extends React.Component {
                 this.flashBorder('#f00', Config.QR_SCANNER_REACTIVATE_DELAY * 2);
 
                 if (Platform.OS === 'ios') {
-                    // TODO: put in failure Haptic.notification
-                    // when Expo 33 comes out
+                    Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
                 } else {
                     Vibration.vibrate([0, 50, 100, 50, 100, 60, 50, 100]);
                 }
