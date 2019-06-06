@@ -55,7 +55,8 @@ export default createBottomTabNavigator({
     },
 }, {
         tabBarOptions: {
-            activeTintColor: Config.COLORS.TAB_BAR_ICON
+            activeTintColor: Config.COLORS.TAB_BAR_ICON,
+            inactiveTintColor: '#aaa',
         },
         initialRouteName: 'Countdown',
     });
