@@ -75,6 +75,14 @@ export default {
     // and we might want more freedom in the future.
     DISPLAY_NAMES: {
 
+        ANNOUNCEMENT_CATEGORY: {
+            'emergency': 'Emergency',
+            'logistics': 'Logistics',
+            'food': 'Food',
+            'event': 'Events',
+            'sponsored': 'Sponsored',
+        },
+
         EVENT_CATEGORY: {
             'general': 'General',
             'tech talk': 'Tech Talk',

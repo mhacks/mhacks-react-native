@@ -10,6 +10,7 @@ export default class Announcement extends React.Component {
         return (
             <View style={[styles.container, { backgroundColor: Config.COLORS.ANNOUNCEMENT_BY_CATEGORY[this.props.category] }]}>
                 <Text style={styles.title}>{this.props.title}</Text>
+                <Text style={styles.category}>{Config.DISPLAY_NAMES.ANNOUNCEMENT_CATEGORY[this.props.category]}</Text>
                 <Text style={styles.body}>{this.props.body}</Text>
                 <Text style={styles.timestamp}>{moment(this.props.time).format('dddd h:mm A')}</Text>
             </View>
@@ -28,7 +29,13 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 22,
         margin: 10,
-        fontWeight: '500', // medium
+        marginBottom: 0,
+    },
+    category: {
+        fontSize: 17,
+        margin: 10,
+        marginTop: 5,
+        fontWeight: '600', // semi bold
     },
     body: {
         fontSize: 15,
@@ -39,6 +46,6 @@ const styles = StyleSheet.create({
         fontSize: 13,
         marginLeft: 10,
         marginBottom: 10,
-        color: '#fff'
+        color: '#fff',
     },
 });
