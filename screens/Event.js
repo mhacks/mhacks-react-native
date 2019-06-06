@@ -23,7 +23,7 @@ export default class EventScreen extends React.Component {
             <ScrollView>
                 <View style={styles.container}>
                     <View style={styles.titleContainer}>
-                        <Text style={styles.title}>{event.title}</Text>
+                        <Text style={styles.title}>{event.name}</Text>
                     </View>
                     <View style={styles.categoryContainer}>
                         <Text style={styles.category}>{CATEGORY_DISPLAY_NAMES[event.category]}</Text>
@@ -37,7 +37,7 @@ export default class EventScreen extends React.Component {
                         </Svg>
                     </View>
                     <View style={styles.timeContainer}>
-                        <Text style={styles.time}>{moment(event.start).format('dddd h:mm a')} to {moment(event.end).format('h:mm a')} ({this.getRelativeTimeString(event)})</Text>
+                        <Text style={styles.time}>{moment(event.startDate_ts).format('dddd h:mm A')} to {moment(event.endDate_ts).format('h:mm A')} ({this.getRelativeTimeString(event)})</Text>
                     </View>
                     <View style={styles.summaryContainer}>
                         <Text style={styles.summary}>{event.summary}</Text>
@@ -48,10 +48,10 @@ export default class EventScreen extends React.Component {
     }
 
     getRelativeTimeString(event) {
-        if (Date.now() < event.start) {
-            return 'starting ' + moment(event.start).fromNow();
+        if (Date.now() < event.startDate_ts) {
+            return 'starting ' + moment(event.startDate_ts).fromNow();
         }
-        if (Date.now() > event.end) {
+        if (Date.now() > event.endDate_ts) {
             return 'event has ended';
         }
         return 'currently happening!';

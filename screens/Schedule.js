@@ -1,72 +1,119 @@
 import React from 'react';
-import { StyleSheet, Dimensions, SafeAreaView, Platform } from 'react-native';
-import EventCalendar from 'react-native-events-calendar'
+import { StyleSheet, FlatList, View, Text } from 'react-native';
+import Timeline from 'react-native-timeline-listview';
 import { createStackNavigator } from 'react-navigation';
-import { Haptic } from 'expo';
 import { connect } from 'react-redux';
+import moment from 'moment';
 
+import EventPreview from '../components/EventPreview';
 import EventScreen from './Event';
+import { fetchEvents } from '../actions/Events';
 import Config from '../config/config';
 
 class ScheduleScreen extends React.Component {
 
     render() {
         return (
-            <SafeAreaView style={{ flex: 1, justifyContent: 'center' }}>
-                <EventCalendar
-                    events={this.props.events}
-                    width={Dimensions.get('window').width}
-                    initDate={this.props.startDate}
-                    eventTapped={this._eventTapped}
-                    dateChanged={this._eventDateChanged}
-                    styles={{ eventTitle: styles.black, eventSummary: styles.black, eventTimes: styles.black }}
-                />
-            </SafeAreaView >
+            <FlatList
+                data={Array.from(this.props.events, ([k, v], index) => ({ key: index, day: k, events: v }))}
+                onRefresh={() => this.props.dispatch(fetchEvents())}
+                refreshing={this.props.isFetching}
+                renderItem={({ item }) => (
+                    <View
+                        style={styles.dayContainer}
+                    >
+                        <Text style={styles.day}>{moment(item.day).format('dddd')}</Text>
+                        <View style={styles.daySeparator} />
+                        <Timeline
+                            data={item.events}
+                            renderDetail={rowData => (
+                                <EventPreview
+                                    event={rowData.rawEvent}
+                                />
+                            )}
+                            onEventPress={this._eventTapped}
+                            timeStyle={styles.time}
+                            timeContainerStyle={{ minWidth: 60 }}
+                            separator={true}
+                            separatorStyle={{ height: StyleSheet.hairlineWidth }}
+                            innerCircle='dot'
+                            options={{ removeClippedSubviews: false }}
+                        />
+                    </View>
+                )}
+            />
         );
     }
 
-    _eventTapped = (e) => {
+    _eventTapped = e => {
         this.props.navigation.navigate('Event', {
-            event: e
-        })
-    }
-
-    _eventDateChanged = (e) => {
-        if (Platform.OS === 'ios') {
-            Haptic.impact(Haptic.ImpactFeedbackStyle.Light)
-        }
+            event: e.rawEvent,
+        });
     }
 
 }
 
 function mapStateToProps(state) {
-    const { events, configuration } = state;
+    const { events } = state;
 
-    const eventsConverted = events.events.map(x => ({
-        start: new Date(x.startDate_ts),
-        end: new Date(x.endDate_ts),
-        title: x.name,
-        summary: x.desc,
-        category: x.category,
-        color: Config.COLORS.EVENT_BY_CATEGORY[x.category],
-    }));
+    const dayToEventsMap = new Map();
+
+    events.events.forEach(e => {
+        const startDate = new Date(e.startDate_ts);
+        const endDate = new Date(e.endDate_ts);
+
+        const eventOver = Date.now() > endDate;
+        const eventOngoing = !(eventOver || (Date.now() < startDate));
+
+        const event = {
+            time: moment(startDate).format('h:mm A') + '\n–\n' + moment(endDate).format('h:mm A'),
+            title: e.name,
+            description: e.desc,
+            lineColor: eventOver
+                ? Config.COLORS.EVENT_DISABLED
+                : Config.COLORS.EVENT_BY_CATEGORY[e.category],
+            circleColor: eventOver
+                ? Config.COLORS.EVENT_DISABLED
+                : Config.COLORS.EVENT_BY_CATEGORY[e.category],
+            dotColor: eventOver
+                ? Config.COLORS.EVENT_DISABLED
+                : eventOngoing
+                    ? '#fff'
+                    : Config.COLORS.EVENT_BY_CATEGORY[e.category],
+            rawEvent: e,
+        };
+
+        const dayFormatted = moment(startDate).format('YYYY-MM-DD');
+        dayToEventsMap.set(dayFormatted, (dayToEventsMap.get(dayFormatted) || []).concat(event));
+
+        // For each day, sort events primarily by
+        // start time and secondarily by end time.
+        // Therefore, events starting at the same time
+        // will be sorted by which ends first.
+        dayToEventsMap.forEach((v, k) => {
+            v.sort((a, b) => {
+                if (a.rawEvent.startDate_ts < b.rawEvent.startDate_ts) return -1;
+                if (a.rawEvent.startDate_ts > b.rawEvent.startDate_ts) return 1;
+
+                if (a.rawEvent.endDate_ts < b.rawEvent.endDate_ts) return -1;
+                if (a.rawEvent.endDate_ts > b.rawEvent.endDate_ts) return 1;
+
+                return 0;
+            });
+        });
+    });
 
     return {
-        events: eventsConverted,
+        events: dayToEventsMap,
         isFetching: events.isFetching,
-        startDate: configuration.configuration !== null
-            ? Date.parse(configuration.configuration.start_date)
-            : new Date(),
     };
 }
 
 export default createStackNavigator({
     Schedule: {
         screen: connect(mapStateToProps)(ScheduleScreen),
-
-        // We don't really need a header on the full schedule page
         navigationOptions: {
-            header: null
+            title: 'Schedule'
         }
     },
     Event: {
@@ -78,7 +125,23 @@ export default createStackNavigator({
 });
 
 const styles = StyleSheet.create({
-    black: {
-        color: '#000'
-    }
+    dayContainer: {
+        flex: 1,
+        alignItems: 'stretch',
+        margin: 10,
+    },
+    day: {
+        fontSize: 34,
+        fontWeight: 'bold',
+        marginBottom: 10,
+    },
+    daySeparator: {
+        height: StyleSheet.hairlineWidth,
+        backgroundColor: '#000',
+        marginBottom: 20,
+    },
+    time: {
+        fontSize: 13,
+        color: '#7F8489',
+    },
 });

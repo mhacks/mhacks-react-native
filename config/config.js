@@ -42,6 +42,10 @@ export default {
         // Used for the color of the tab bar focus tint
         TAB_BAR_ICON: '#E02358',
 
+        // Color used to signify when an event is disabled
+        // (used for dot, line, and text)
+        EVENT_DISABLED: '#ccc',
+
         // Colors relating to the ticket component
         TICKET: {
             BACKGROUND: '#E02358',
