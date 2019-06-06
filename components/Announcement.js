@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import moment from 'moment';
 
 import Config from '../config/config';
 
@@ -10,7 +11,7 @@ export default class Announcement extends React.Component {
             <View style={[styles.container, { backgroundColor: Config.COLORS.ANNOUNCEMENT_BY_CATEGORY[this.props.category] }]}>
                 <Text style={styles.title}>{this.props.title}</Text>
                 <Text style={styles.body}>{this.props.body}</Text>
-                <Text style={styles.timestamp}>{this.props.time.toDateString() + ' ' + this.props.time.toLocaleTimeString()}</Text>
+                <Text style={styles.timestamp}>{moment(this.props.time).format('dddd h:mm A')}</Text>
             </View>
         );
     }
