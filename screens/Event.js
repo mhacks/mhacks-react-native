@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, StyleSheet, ScrollView, View } from 'react-native';
-import * as Svg from 'react-native-svg';
+import { Svg, Circle } from 'react-native-svg';
 import moment from 'moment';
 
 import Config from '../config/config';
@@ -28,7 +28,7 @@ export default class EventScreen extends React.Component {
                     <View style={styles.categoryContainer}>
                         <Text style={styles.category}>{CATEGORY_DISPLAY_NAMES[event.category]}</Text>
                         <Svg height={12} width={12}>
-                            <Svg.Circle
+                            <Circle
                                 cx={6}
                                 cy={6}
                                 r={6}
