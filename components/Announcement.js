@@ -12,7 +12,7 @@ export default class Announcement extends React.Component {
                 <Text style={styles.title}>{this.props.title}</Text>
                 <Text style={styles.category}>{Config.DISPLAY_NAMES.ANNOUNCEMENT_CATEGORY[this.props.category]}</Text>
                 <Text style={styles.body}>{this.props.body}</Text>
-                <Text style={styles.timestamp}>{moment(this.props.time).format('dddd h:mm A')}</Text>
+                <Text style={styles.timestamp}>{moment(this.props.time).calendar()}</Text>
             </View>
         );
     }
