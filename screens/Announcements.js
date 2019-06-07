@@ -22,7 +22,17 @@ class AnnouncementsScreen extends React.Component {
                     onRefresh={() => this.props.dispatch(fetchAnnouncements())}
                     refreshing={this.props.isFetching}
                     contentContainerStyle={{ paddingBottom: 10 }}
-                    ListEmptyComponent={<Text style={{ margin: 20, textAlign: 'center' }}>No announcements yet, stick tight!</Text>}
+                    ListEmptyComponent={(
+                        <Text
+                            style={{
+                                fontSize: 15,
+                                margin: 20,
+                                textAlign: 'center',
+                            }}
+                        >
+                            No announcements yet, stick tight!
+                        </Text>
+                    )}
                 />
             </View>
         );

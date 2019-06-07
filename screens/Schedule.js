@@ -41,6 +41,17 @@ class ScheduleScreen extends React.Component {
                         />
                     </View>
                 )}
+                ListEmptyComponent={(
+                    <Text
+                        style={{
+                            fontSize: 15,
+                            margin: 20,
+                            textAlign: 'center',
+                        }}
+                    >
+                        No events yet, stick tight!
+                    </Text>
+                )}
             />
         );
     }
