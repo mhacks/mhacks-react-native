@@ -24,6 +24,7 @@ class TicketScannerScreen extends React.Component {
         infoPopup: {
             name: '',
             email: '',
+            minor: true,
             bottomMargin: new Animated.Value(-75),
         },
     };
@@ -66,13 +67,22 @@ class TicketScannerScreen extends React.Component {
                 }]}
                     zIndex={1}
                 >
-                    <View style={styles.infoPopup}>
+                    <View style={[styles.infoPopup, {
+                        backgroundColor: this.state.infoPopup.minor
+                            ? '#FFA500'
+                            : '#0f0',
+                    }]}>
                         <Text style={styles.infoPopupText}>
                             Name: {this.state.infoPopup.name}
                         </Text>
                         <Text style={styles.infoPopupText}>
                             Email: {this.state.infoPopup.email}
                         </Text>
+                        {this.state.infoPopup.minor &&
+                            <Text style={styles.infoPopupMinorText}>
+                                This hacker is a minor.
+                            </Text>
+                        }
                     </View>
                 </Animated.View>
                 <Animated.View
@@ -144,8 +154,8 @@ class TicketScannerScreen extends React.Component {
         ]).start();
     }
 
-    showInfoPopup(name, email, duration) {
-        this.setState({ infoPopup: { name: name, email: email, bottomMargin: new Animated.Value(-75) } });
+    showInfoPopup(name, email, isMinor, duration) {
+        this.setState({ infoPopup: { name: name, email: email, minor: isMinor, bottomMargin: new Animated.Value(-75) } });
 
         Animated.sequence([
             Animated.timing(
@@ -186,9 +196,10 @@ class TicketScannerScreen extends React.Component {
                 }
 
                 const name = responseJSON.feedback[0].value;
+                const isMinor = responseJSON.feedback[1].value === 'Yes';
 
                 this.flashBorder('#0f0', Config.QR_SCANNER_REACTIVATE_DELAY);
-                this.showInfoPopup(name, email, Config.QR_SCANNER_REACTIVATE_DELAY);
+                this.showInfoPopup(name, email, isMinor, Config.QR_SCANNER_REACTIVATE_DELAY);
 
                 if (Platform.OS === 'ios') {
                     Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
@@ -257,13 +268,16 @@ const styles = StyleSheet.create({
         height: 75,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: '#aaa',
         borderRadius: 10,
         opacity: 0.9,
     },
     infoPopupText: {
-        fontSize: 16,
+        fontSize: 15,
+        // fontWeight: '500',
+    },
+    infoPopupMinorText: {
+        fontSize: 13,
         fontWeight: 'bold',
-        color: '#fff',
+        color: 'red',
     },
 });
