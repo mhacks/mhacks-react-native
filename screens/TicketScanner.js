@@ -208,7 +208,7 @@ class TicketScannerScreen extends React.Component {
                 }
 
                 Audio.Sound.createAsync(
-                    require('../assets/sounds/scan_success.m4a'),
+                    { uri: 'file:///System/Library/Audio/UISounds/payment_success.caf' },
                     { shouldPlay: true }
                 );
 
@@ -225,7 +225,7 @@ class TicketScannerScreen extends React.Component {
                 }
 
                 Audio.Sound.createAsync(
-                    require('../assets/sounds/scan_failure.m4a'),
+                    { uri: 'file:///System/Library/Audio/UISounds/payment_failure.caf' },
                     { shouldPlay: true }
                 );
 
